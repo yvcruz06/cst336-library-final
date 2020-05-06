@@ -1,0 +1,39 @@
+<%- include ('templates/header'); -%>
+
+<div class='container'>
+	<div class='jumbotron'>
+		<h1> Library </h1>
+	</div>
+	<div class='row'>
+        <%if(!books.inStock == 0){%>
+            <h1 class='col-sm-12 nofound'>Out of Stock!</h1>    
+        <%}
+        else{%>
+        	<table>
+        	<tr class='bookHeadings'><th><h4 style="font-size:30px;padding-left:20px"> Cover </h4></th><th><h4 style="font-size:30px;padding-left:90px"> Title </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:70px"> Year </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:70px"> Stock </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:80px"> Author <h4></th></tr>
+        		<tr><td colspan="4"><hr/></td></tr>
+        		<tr><td colspan="10"><hr/></td></tr>
+                <%books.forEach(function(book){%>
+                    <form action='/rentalConfirmation/<%=book.bookId%>' method='POST'>
+                        <tr class= 'bookLabels'>
+                        	<td class='bookTable'><img class = "img" src= '<%=book.cover%>'></image></td>
+                        	<td class='bookTable'><%=book.title%></td>
+                        	<td class='bookTable'><%=book.year%></td>
+                        	<td class='bookTable'><%=book.inStock%></td>
+                        	<td class='bookTable'><%=name%></td>
+                        	<%if(book.inStock != 0){%>
+	            			<td class='bookTable'><button class='btn btn-primary btn-block'>Confirm Rental</button></td>
+	            			<%} else {%>
+	            			<td class='bookTable'>Out of Stock!</td>
+	            			<%}%>
+                    	</tr>
+                        <br>
+                    </form>
+                <%});%>
+        	</table>
+        <%}%>
+</div>
+<%- include ('templates/footer'); -%>

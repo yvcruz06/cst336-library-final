@@ -1,0 +1,38 @@
+<%- include ('templates/header'); -%>
+
+<div class='container'>
+	<div class='jumbotron'>
+		<h1> Active Rentals </h1>
+	</div>
+
+	<div class='row'>
+        <%if(rentedBooks.length == 0){%>
+            <h1 class='col-sm-12 nofound'>No Active Rentals!</h1>    
+        <%}
+        else{%>
+        	<table>
+        		<tr class='bookHeadings'><th><h4 style="font-size:30px;padding-left:20px"> Cover </h4></th><th><h4 style="font-size:30px;padding-left:90px"> Title </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:70px"> Year </h4></th>
+        		<tr><td colspan="4"><hr/></td></tr>
+        		<tr><td colspan="10"><hr/></td></tr>
+        		<%rentedBooks.forEach(function(rentedBook){%>
+            		<%books.forEach(function(book){%>
+            			<%if(book.bookId == rentedBook.bookId){%>
+            			<tr>
+	            			<form action='/return/<%=rentedBook.rentalId%>' method='POST'>
+	            				<td><img src= '<%=book.cover%>'></image></td>
+		            			<td class='bookTable'><%=book.title%></td>
+		            			<td class='bookTable'><%=book.year%></td>
+		            			<td class='bookTable'><%=book.firstName%> <%=book.lastName%></td>
+		            			<td class='bookTable'><button class='btn btn-primary btn-block'>Return Book</button></td>
+	            			</form>
+	            		</tr>
+	            		<br>
+	            		<%}%>
+	        		<%});%>
+        		<%});%>
+        	</table>
+        <%}%>
+    </div>
+</div>
+<%- include ('templates/footer'); -%>
